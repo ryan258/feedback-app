@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import FeedbackList from './components/FeedbackList'
+import Header from './components/Header'
+// import FeedbackItem from './components/FeedbackItem'
+import FeedbackData from './data/FeedbackData'
 
-function App() {
+const App = () => {
+  const [feedback, setFeedback] = useState(FeedbackData)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Header text='Beep' />
+      <div className='container'>
+        <FeedbackList feedback={feedback} />
+      </div>
+    </>
+  )
 }
 
-export default App;
+export default App
