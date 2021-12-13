@@ -1,4 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
+// BrowserRouter uses the HTML5 history.api
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import React, { useState } from 'react'
 import FeedbackForm from './components/FeedbackForm'
 import FeedbackList from './components/FeedbackList'
@@ -6,6 +8,8 @@ import FeedbackStats from './components/FeedbackStats'
 import Header from './components/Header'
 // import FeedbackItem from './components/FeedbackItem'
 import FeedbackData from './data/FeedbackData'
+import AboutPage from './pages/AboutPage'
+import AboutIconLink from './components/AboutIconLink'
 
 const App = () => {
   // the whole app wil react to this feedback state
@@ -24,14 +28,29 @@ const App = () => {
   }
 
   return (
-    <>
+    <Router>
       <Header text='Beep' />
       <div className='container'>
-        <FeedbackForm handleAdd={addFeedback} />
-        <FeedbackStats feedback={feedback} />
-        <FeedbackList feedback={feedback} handleDelete={deleteFeedback} />
+        <Routes>
+          <Route
+            exact
+            path='/'
+            element={
+              <>
+                <FeedbackForm handleAdd={addFeedback} />
+                <FeedbackStats feedback={feedback} />
+                <FeedbackList
+                  feedback={feedback}
+                  handleDelete={deleteFeedback}
+                />
+              </>
+            }
+          ></Route>
+          <Route path='/about' element={<AboutPage />} />
+        </Routes>
+        <AboutIconLink />
       </div>
-    </>
+    </Router>
   )
 }
 
